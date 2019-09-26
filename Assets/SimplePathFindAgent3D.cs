@@ -7,14 +7,14 @@ using Random = UnityEngine.Random;
 
 public class SimplePathFindAgent3D : MonoBehaviour
 {
-    private Vector3 _target;
-    public float Speed = 1;
-    public static float CloseTargetThreshold = 1f;
     public MeshRenderer MeshRenderer;
     public Seeker Seeker;
-    public float WaitTimeMin = 3;
-    public float WaitTimeMax = 10;
     public List<Vector3Int> openSpaces;
+    private Vector3 _target;
+    private float Speed = 1;
+    private static float CloseTargetThreshold = 1f;
+    private float WaitTimeMin = 3;
+    private float WaitTimeMax = 10;
 
     private async void Start()
     {
@@ -27,6 +27,7 @@ public class SimplePathFindAgent3D : MonoBehaviour
 
     private void RequestPathFind()
     {
+        MeshRenderer.material.color = Color.red;
         var start = this.transform.position;
         var end = openSpaces[Random.Range(0, openSpaces.Count)];
         Seeker.StartPath(start, end, Callback);
@@ -34,11 +35,13 @@ public class SimplePathFindAgent3D : MonoBehaviour
 
     private void Callback(Path p)
     {
+        MeshRenderer.material.color = Color.green;
         //Debug.Log($"{this.gameObject.name} found path in {p.duration} ms!");
     }
 
     private async Task Wait()
     {
+        MeshRenderer.material.color = Color.blue;
         await Task.Delay(TimeSpan.FromSeconds(Random.Range(WaitTimeMin, WaitTimeMax)));
     }
 
