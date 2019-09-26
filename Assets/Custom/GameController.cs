@@ -1,6 +1,5 @@
-﻿using System.Collections;
+﻿using Pathfinding;
 using System.Collections.Generic;
-using Pathfinding;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -8,16 +7,23 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {
     public GameObject BlockPrf;
+    public GameObject SimpleBotPrf;
     public AstarPath AstarPath;
     public BotGenerator BotGenerator;
     public List<Vector3Int> OpenSpaces;
     public Button StressTestButton;
     public Button ForceScanButton;
+    public Button SpawnSimpleBotButton;
     public StressTestSeekerController StressTestSeekerController;
     public int BlockMapScale = 2;
 
+    public int StressTestPathFinderCount = 100;
+    public float StressTestPathFinderFindingTimeGapMax = 10f;
+    public float StressTestPathFinderFindingTimeGapMin = 3f;
+    public int SimpleBotSpawnAmount = 100;
+
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         //스트레스 테스트 기능은 맵이 만들어지고 스캔이 끝난 후 가능하므로 꺼둔다.
         StressTestButton.gameObject.SetActive(false);
@@ -31,12 +37,11 @@ public class GameController : MonoBehaviour
             {
                 if (mapData[x, z] == 1)
                 {
-                    var newBlock = Instantiate(BlockPrf, new Vector3(x + this.transform.position.x, 0, z + this.transform.position.z ) * BlockMapScale, Quaternion.identity);
+                    var newBlock = Instantiate(BlockPrf, new Vector3(x + this.transform.position.x, 0, z + this.transform.position.z) * BlockMapScale, Quaternion.identity);
                     newBlock.transform.localScale = new Vector3(1, 4f, 1) * BlockMapScale;
                 }
             }
         }
-
 
         //빈방들을 체크해둔다.
         OpenSpaces = GetOpenSpaces(mapData);
@@ -54,7 +59,17 @@ public class GameController : MonoBehaviour
 
         //hack : 위 문제 때문에 강제로 스캔하게 한다.
         ForceScanButton.onClick.AddListener(() => AstarPath.Scan());
-        
+
+        SpawnSimpleBotButton.onClick.AddListener(() => SpawnSimpleBots(SimpleBotSpawnAmount, OpenSpaces));
+    }
+
+    private void SpawnSimpleBots(int simpleBotSpawnAmount, List<Vector3Int> openSpaces)
+    {
+        for (int i = 0; i < simpleBotSpawnAmount; i++)
+        {
+            var spawnSpace = openSpaces[Random.Range(0, openSpaces.Count)];
+            var newBot = Instantiate(SimpleBotPrf, spawnSpace, Quaternion.identity);
+        }
     }
 
     /// <summary>
@@ -69,7 +84,6 @@ public class GameController : MonoBehaviour
         StressTestSeekerController.ForceSeek(start, end);
     }
 
-
     public List<Vector3Int> GetOpenSpaces(int[,] mapData)
     {
         var openSpaces = new List<Vector3Int>();
@@ -79,7 +93,7 @@ public class GameController : MonoBehaviour
             {
                 if (mapData[x, z] == 0)
                 {
-                    openSpaces.Add(new Vector3Int(x* BlockMapScale, 0, z* BlockMapScale));
+                    openSpaces.Add(new Vector3Int(x * BlockMapScale, 0, z * BlockMapScale));
                 }
             }
         }
@@ -87,10 +101,7 @@ public class GameController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
     }
 }
-
-
