@@ -15,7 +15,7 @@ namespace Pathfinding
         private float _totalRunMs;
 
         // Start is called before the first frame update
-        void Start()
+        private void Start()
         {
             seeker = GetComponent<Seeker>();
         }
@@ -32,6 +32,4 @@ namespace Pathfinding
             ResultText.text = $"total run {_totalRun} times. avg time is {_totalRunMs / _totalRun} ms! ";
         }
     }
-
-
 }

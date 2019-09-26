@@ -15,28 +15,16 @@ public class SimplePathFindAgent3D : MonoBehaviour
     private static float CloseTargetThreshold = 1f;
     private float WaitTimeMin = 3;
     private float WaitTimeMax = 10;
+    public static int CalculatingNotFinishedPaths;
+    private bool _isWaitCalc = false;
 
     private async void Start()
     {
         /*while (true)
         {
             await Wait();
-            RequestPathFind();
+            RequestPathFindAndSetTarget();
         }*/
-    }
-
-    private void RequestPathFind()
-    {
-        //MeshRenderer.material.color = Color.red;
-        var start = this.transform.position;
-        var end = openSpaces[Random.Range(0, openSpaces.Count)];
-        Seeker.StartPath(start, end, Callback);
-    }
-
-    private void Callback(Path p)
-    {
-        // MeshRenderer.material.color = Color.green;
-        //Debug.Log($"{this.gameObject.name} found path in {p.duration} ms!");
     }
 
     private async Task Wait()
@@ -47,9 +35,12 @@ public class SimplePathFindAgent3D : MonoBehaviour
 
     private void Update()
     {
+        //경로계산이 끝날 때 까지 대기시킨다. 움직이지 않고 멍때리는 에이전트가 많을수록 길찾기 부하가 심한 것이다.
+        if (_isWaitCalc) return;
+
         if (CloseEnough(_target))
         {
-            ResetTarget();
+            RequestPathFindAndSetTarget();
             //MeshRenderer.material.color = Color.green;
         }
         else
@@ -57,6 +48,27 @@ public class SimplePathFindAgent3D : MonoBehaviour
             transform.Translate(Vector3.Normalize(_target - transform.position) * Speed);
             //MeshRenderer.material.color = Color.blue;
         }
+    }
+
+    private void RequestPathFindAndSetTarget()
+    {
+        //MeshRenderer.material.color = Color.red;
+        var start = this.transform.position;
+        var end = openSpaces[Random.Range(0, openSpaces.Count)];
+        CalculatingNotFinishedPaths++;
+        _isWaitCalc = true;
+        Seeker.StartPath(start, end, Callback);
+
+        _target = end;
+    }
+
+    private void Callback(Path p)
+    {
+        CalculatingNotFinishedPaths--;
+        _isWaitCalc = false;
+
+        //MeshRenderer.material.color = Color.green;
+        //Debug.Log($"{this.gameObject.name} found path in {p.duration} ms!");
     }
 
     private bool CloseEnough(Vector3 target)
