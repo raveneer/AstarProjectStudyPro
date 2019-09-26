@@ -14,6 +14,7 @@ public class GameController : MonoBehaviour
     public Button StressTestButton;
     public Button ForceScanButton;
     public Button SpawnSimpleBotButton;
+    public Button SpawnNotSimpleBotButton;
     public StressTestSeekerController StressTestSeekerController;
     public int BlockMapScale = 2;
 
@@ -21,6 +22,7 @@ public class GameController : MonoBehaviour
     public float StressTestPathFinderFindingTimeGapMax = 10f;
     public float StressTestPathFinderFindingTimeGapMin = 3f;
     public int SimpleBotSpawnAmount = 100;
+    public int NotSimpleBotSpawnAmount = 100;
 
     // Start is called before the first frame update
     private void Start()
@@ -51,7 +53,7 @@ public class GameController : MonoBehaviour
         AstarPath.Scan();
 
         //봇들을 미로에 따라 생성한다.
-        BotGenerator.GenerateBots(mapData);
+        //BotGenerator.GenerateBots(mapData);
 
         //스트레스 테스트를 할 수 있게 버튼을 켠다.
         StressTestButton.gameObject.SetActive(true);
@@ -59,8 +61,8 @@ public class GameController : MonoBehaviour
 
         //hack : 위 문제 때문에 강제로 스캔하게 한다.
         ForceScanButton.onClick.AddListener(() => AstarPath.Scan());
-
         SpawnSimpleBotButton.onClick.AddListener(() => SpawnSimpleBots(SimpleBotSpawnAmount, OpenSpaces));
+        SpawnNotSimpleBotButton.onClick.AddListener(() => BotGenerator.GenerateBots(mapData, NotSimpleBotSpawnAmount));
     }
 
     private void SpawnSimpleBots(int simpleBotSpawnAmount, List<Vector3Int> openSpaces)
