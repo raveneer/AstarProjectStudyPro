@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour
     public BotGenerator BotGenerator;
     public List<Vector3Int> OpenSpaces;
     public Button StressTestButton;
+    public Button ForceScanButton;
     public StressTestSeekerController StressTestSeekerController;
     public int BlockMapScale = 2;
 
@@ -41,6 +42,7 @@ public class GameController : MonoBehaviour
         OpenSpaces = GetOpenSpaces(mapData);
 
         //변경된 미로에 따라 길을 생성한다.
+        //bug : 어째서인지, 벽들이 다 생성되기 전에 스캔을 하는 것 같다...
         AstarPath.Scan();
 
         //봇들을 미로에 따라 생성한다.
@@ -49,6 +51,10 @@ public class GameController : MonoBehaviour
         //스트레스 테스트를 할 수 있게 버튼을 켠다.
         StressTestButton.gameObject.SetActive(true);
         StressTestButton.onClick.AddListener(StressTest);
+
+        //hack : 위 문제 때문에 강제로 스캔하게 한다.
+        ForceScanButton.onClick.AddListener(() => AstarPath.Scan());
+        
     }
 
     /// <summary>
