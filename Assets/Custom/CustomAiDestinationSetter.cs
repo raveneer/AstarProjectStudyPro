@@ -3,9 +3,12 @@ using System.Collections;
 
 namespace Pathfinding
 {
+    //ai 마다 1개씩 붙어야 함. 따라서 ai 개수와 같다.
     internal class CustomAiDestinationSetter : VersionedMonoBehaviour
     {
         private GameController gameController;
+        public static int CalculatingNotFinishedPaths;
+        public static int CustomAiDestinationSetterAmount;
 
         /// <summary>The object that the AI should move to</summary>
         public Vector3 destination;
@@ -18,11 +21,15 @@ namespace Pathfinding
             ai.canSearch = true;
             if (ai != null) ai.onSearchPath += Update;
             gameController = FindObjectOfType<GameController>();
+
+            CustomAiDestinationSetterAmount++;
         }
 
         private void OnDisable()
         {
             if (ai != null) ai.onSearchPath -= Update;
+
+            CustomAiDestinationSetterAmount--;
         }
 
         private void Start()

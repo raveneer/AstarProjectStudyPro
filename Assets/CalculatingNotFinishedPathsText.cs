@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Pathfinding;
 using TMPro;
 using UnityEngine;
 
@@ -15,7 +16,7 @@ public class CalculatingNotFinishedPathsText : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        var calculatingNotFinishedPaths = SimplePathFindAgent3D.CalculatingNotFinishedPaths;
-        Text.text = $"CalculatingNotFinishedPaths {calculatingNotFinishedPaths}";
+        var calculatingNotFinishedPaths = AILerp.NotFinishedPathfindCount;
+        Text.text = $"not finished pathfinds : {calculatingNotFinishedPaths}";
     }
 }

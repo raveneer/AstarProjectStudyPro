@@ -56,6 +56,10 @@ namespace Pathfinding
         /// <summary>Speed in world units</summary>
         public float speed = 3;
 
+        //vk 추가. 길찾기 명령의 미처리 개수를 확인하기 위해서. 길찾기 요청이 들어갈때 늘어나고, 요청이 종료될때 (에러반환이더라도) 줄어든다.
+        //다른 ai들에게는 별도로 추가해줘야 함. astarPath에 이 기능이 있을 것으로 예상되나 못 찾겠음.
+        public static int NotFinishedPathfindCount = 0;
+
         /// <summary>
         /// Determines which direction the agent moves in.
         /// For 3D games you most likely want the ZAxisIsForward option as that is the convention for 3D games.
@@ -453,6 +457,8 @@ namespace Pathfinding
             // Create a new path request
             // The OnPathComplete method will later be called with the result
             seeker.StartPath(currentPosition, destination);
+
+            NotFinishedPathfindCount++;
         }
 
         /// <summary>
@@ -523,6 +529,8 @@ namespace Pathfinding
                 reachedEndOfPath = true;
                 OnTargetReached();
             }
+
+            NotFinishedPathfindCount--;
         }
 
         /// <summary>\copydoc Pathfinding::IAstarAI::SetPath</summary>
