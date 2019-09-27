@@ -3,9 +3,8 @@ using System.Collections;
 
 namespace Pathfinding
 {
-    internal class BotAiDestinationSetter : VersionedMonoBehaviour
+    internal class CustomAiDestinationSetter : VersionedMonoBehaviour
     {
-        public MeshRenderer BotMeshRender;
         private GameController gameController;
 
         /// <summary>The object that the AI should move to</summary>

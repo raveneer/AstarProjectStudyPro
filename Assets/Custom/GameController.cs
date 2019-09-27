@@ -1,4 +1,4 @@
-﻿using Pathfinding;
+using Pathfinding;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -71,8 +71,8 @@ public class GameController : MonoBehaviour
         {
             var spawnSpace = openSpaces[Random.Range(0, openSpaces.Count)];
             var newBot = Instantiate(SimpleBotPrf, spawnSpace, Quaternion.identity);
-            var agent = newBot.GetComponent<SimplePathFindAgent3D>();
-            agent.openSpaces = openSpaces;
+            //var agent = newBot.GetComponent<SimplePathFindAgent3D>();
+            //agent.openSpaces = openSpaces;
         }
     }
 
