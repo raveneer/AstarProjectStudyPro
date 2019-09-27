@@ -60,6 +60,14 @@ namespace Pathfinding
         //다른 ai들에게는 별도로 추가해줘야 함. astarPath에 이 기능이 있을 것으로 예상되나 못 찾겠음.
         public static int NotFinishedPathfindCount = 0;
 
+        //다음 노드를 받아낸다.
+        public GraphNode NextNode()
+        {
+            // Note: Doesn't do any bounds checking, you should probably add that
+            // Also only works if you don't use any modifiers that e.g smooth or simplify the path
+            return path.path[interpolator.segmentIndex + 1];
+        }
+
         /// <summary>
         /// Determines which direction the agent moves in.
         /// For 3D games you most likely want the ZAxisIsForward option as that is the convention for 3D games.
