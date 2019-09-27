@@ -3,12 +3,10 @@ using System.Collections;
 
 namespace Pathfinding
 {
-    //ai 마다 1개씩 붙어야 함. 따라서 ai 개수와 같다.
     internal class CustomAiDestinationSetter : VersionedMonoBehaviour
     {
         private GameController gameController;
-        public static int CalculatingNotFinishedPaths;
-        public static int CustomAiDestinationSetterAmount;
+        public static int Amount;
 
         /// <summary>The object that the AI should move to</summary>
         public Vector3 destination;
@@ -22,14 +20,14 @@ namespace Pathfinding
             if (ai != null) ai.onSearchPath += Update;
             gameController = FindObjectOfType<GameController>();
 
-            CustomAiDestinationSetterAmount++;
+            Amount++;
         }
 
         private void OnDisable()
         {
             if (ai != null) ai.onSearchPath -= Update;
 
-            CustomAiDestinationSetterAmount--;
+            Amount--;
         }
 
         private void Start()
@@ -37,7 +35,6 @@ namespace Pathfinding
             SetDestination();
         }
 
-        /// <summary>Updates the AI's destination every frame. only recalc when destination reached (for performnace)</summary>
         private void Update()
         {
             if (ai.reachedEndOfPath)
@@ -51,7 +48,6 @@ namespace Pathfinding
             }
         }
 
-        //빈칸으로 목표설정 한다.
         private void SetDestination()
         {
             destination = gameController.OpenSpaces[Random.Range(0, gameController.OpenSpaces.Count)];

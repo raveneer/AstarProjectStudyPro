@@ -18,6 +18,6 @@ public class AgentCountText : MonoBehaviour
     //CustomAiDestinationSetter 가 custom ai 당 1개씩 붙어야 하므로 개수를 역산하여 체크함.
     private void Update()
     {
-        TextMeshProUgui.text = $"Agents: {CustomAiDestinationSetter.CustomAiDestinationSetterAmount}";
+        TextMeshProUgui.text = $"Agents: {CustomAiDestinationSetter.Amount}";
     }
 }
