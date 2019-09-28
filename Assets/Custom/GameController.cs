@@ -1,5 +1,6 @@
 using Pathfinding;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -16,13 +17,15 @@ public class GameController : MonoBehaviour
     public Button SpawnSimpleBotButton;
     public Button SpawnNotSimpleBotButton;
     public StressTestSeekerController StressTestSeekerController;
-    public int BlockMapScale = 2;
+    public int BlockScale = 1;
 
     public int StressTestPathFinderCount = 100;
     public float StressTestPathFinderFindingTimeGapMax = 10f;
     public float StressTestPathFinderFindingTimeGapMin = 3f;
     public int SimpleBotSpawnAmount = 100;
     public int NotSimpleBotSpawnAmount = 100;
+    public int MapWidth = 100;
+    public int MapHeight = 100;
 
     // Start is called before the first frame update
     private void Start()
@@ -31,7 +34,7 @@ public class GameController : MonoBehaviour
         StressTestButton.gameObject.SetActive(false);
 
         MazeGenerator mazeGenerator = new MazeGenerator();
-        var mapData = mazeGenerator.FromDimensions(100, 100);
+        var mapData = mazeGenerator.FromDimensions(MapWidth, MapHeight);
 
         for (int x = 0; x < mapData.GetLength(0); x++)
         {
@@ -39,8 +42,8 @@ public class GameController : MonoBehaviour
             {
                 if (mapData[x, z] == 1)
                 {
-                    var newBlock = Instantiate(BlockPrf, new Vector3(x + this.transform.position.x, 0, z + this.transform.position.z) * BlockMapScale, Quaternion.identity);
-                    newBlock.transform.localScale = new Vector3(1, 4f, 1) * BlockMapScale;
+                    var newBlock = Instantiate(BlockPrf, new Vector3(x + this.transform.position.x, 0, z + this.transform.position.z) * BlockScale, Quaternion.identity);
+                    newBlock.transform.localScale = new Vector3(1, 4f, 1) * BlockScale;
                 }
             }
         }
@@ -50,6 +53,9 @@ public class GameController : MonoBehaviour
 
         //변경된 미로에 따라 길을 생성한다.
         //bug : 어째서인지, 벽들이 다 생성되기 전에 스캔을 하는 것 같다...
+        var gridGraph = AstarPath.graphs.First() as GridGraph;
+        gridGraph.SetDimensions(MapWidth, MapHeight, BlockScale);
+        gridGraph.center = new Vector3(MapWidth / 2 + BlockScale / 2f, 0, MapHeight / 2 + BlockScale / 2f);
         AstarPath.Scan();
 
         //봇들을 미로에 따라 생성한다.
@@ -58,6 +64,11 @@ public class GameController : MonoBehaviour
         //스트레스 테스트를 할 수 있게 버튼을 켠다.
         StressTestButton.gameObject.SetActive(true);
         StressTestButton.onClick.AddListener(StressTest);
+
+        //카메라 조정.
+        var cam = Camera.main;
+        cam.orthographicSize = Mathf.Max(MapWidth, MapHeight) / 2;
+        cam.transform.position = new Vector3(MapWidth / 2, 400, MapHeight / 2); //xz 축임에 주의.
 
         //hack : 위 문제 때문에 강제로 스캔하게 한다.
         ForceScanButton.onClick.AddListener(() => AstarPath.Scan());
@@ -97,7 +108,7 @@ public class GameController : MonoBehaviour
             {
                 if (mapData[x, z] == 0)
                 {
-                    openSpaces.Add(new Vector3Int(x * BlockMapScale, 0, z * BlockMapScale));
+                    openSpaces.Add(new Vector3Int(x * BlockScale, 0, z * BlockScale));
                 }
             }
         }

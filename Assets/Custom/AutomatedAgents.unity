@@ -381,7 +381,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 30}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 200, y: 400, z: 200}
+  m_LocalPosition: {x: 50, y: 400, z: 50}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -412,7 +412,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 56.2
-  orthographic: 0
+  orthographic: 1
   orthographic size: 100
   m_Depth: -1
   m_CullingMask:
@@ -884,7 +884,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   data:
-    dataString: UEsDBBQAAAgIAABIIezhg06rjAIAAIYFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VF1vmzAU/SuRn7cpoQQte9tImm5S26jZ1IfRBxdfghVjI380Sav8910bApRtEhJw7rnX5x5f+41waWrIrdJrzdmtYkC+TIj/Jh8mffAGjnSn5Ja/woXzyJktPYkGzgO1XCE+82lGVWA1z7/KnfDkKYJO8kLpasV2kCpjDcIFFQYwpJX12RKhtwk5tgmn9v3q35MzfuUgLeieFU3HPEQC08lc0KoG5hX3CXGXELdEid20HK88V0Jw00oh9lSHVlNaG4eNIIFxiq0FEb5UCXxXWv/zaT5Mvy8KA7YlaXpaco0eNXXJN9UYV1Gzb7S9UOH8SvNZFFQ1ZW//Gy+0qm4uS8+moStb8nz/QE85NXbg7RBe9uJnwaQDFXv6LOCxBHmn1lo5yQa5zkC0HPx37aUl5F6a1Q46uSPQ1X9v56zfznMw4JgKXj13/iGwFSqYHiX4Dxq35zsqDuNh2gqIehG/DPyku+EctYFrro3FUEuXXt2zctpTySq45ptxNlVaQoBbzTVIKuxpg2XseBdHscGyo8g19SfmfdblIIxSAtzxcXin45yNOoT9mjfb8cNV9UZxabdAdV4OKppSHW7BlPfOCi6h78kH7tDGVEnZzKD5R9rW6YLmgzQLR+s0LKml4SygJhyU4XQYtDRkSCeEH8rQhy/+G7vwz5O3uaS4rggwuVMynKJ37yc/CjvH2ftZJ5DMphCzJIpYHEdJ8nERXdFFEiXxfHGVxJ8XJJwFLtF1KjaNaa3tOEOy70Xi2F+utcla0zocP6bpYc1fKzUYAC4Ltc01gLxvKnTNgsZF8KJgK8axzS1Yy2WYPvKWEaHyPbCsK5QFY1dHq2nWV8lIzV+U9UhG0nCZZeRMzn8AUEsDBBQAAAgIAABIIeypD20bbAAAAHcAAAAJACQAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0Bq1YqSy0qzszPU7JSMNEz0rPQUVBKL0osyCgGChiCOKWZKSB2tFKqmaFBqkmKmZFRiomJkZmZrqWRcaKlmZGZiamlsZmJhaVSLFB9SWVBql9ibipET0BiSUZaZl5KZl66nntRZoo7yGil2FoAUEsBAi0AFAAACAgAAEgh7OGDTquMAgAAhgUAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAAEgh7KkPbRtsAAAAdwAAAAkAJAAAAAAAAAAAAAAA2QIAAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLBQYAAAAAAgACALgAAACQAwAAAAA=
+    dataString: UEsDBBQAAAgIAABIIezirONLkAIAAIoFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VF1vmzAU/SuRn7eJ0AQte9tImm5S26jZ1IfRBxdfghVjI380Sav8910bApRtEhJw7rnX5x5f+41waWrIrdJrzdmtYkC+TIj/Jh8mffAGjnSn5Ja/woXzyJktPYkGzgO1XCE+9WlGVWA1z7/KnfDkCEEneaF0tWI7SJWxBuGCCgMY0sr6bInQ24Qc24RT+37178kZv3KQFnTPiqPo03zEDFhgO5kLWtXAvOo+aRZdiuNXIErsqOV49bkSgptWDrGnOrSb0to4bAYJjFNsLwjxpUrgu9L6nyCmS78vCgO2JWl6WnKNPjV1yTfVmFdRs2+0vVDh/ErzaRxUNWVv/xsvtKpuLktPo9CVLXm+f6CnnBo78HcIL3vx02DSgYo9fRbwWIK8U2utnGSDXGcgXg7+u/bSEnIvzWoHndwR6Oq/t3Tab+k5GHBMBa+eO/8Q2AoVTI8T/AeN2/MdFYcRMW0lRL2IXwZ+0t1wltrANdfGYqhdUHp1z8ppTyWr4JpvxtlUaQkBbjXXIKmwpw2WseNdHMUGy44i19SfmvdZl8MwSglwx8fxjcY5G3UI+zVvtuOHq+qN4tJugeq8HFQ0pTrcginvnRVcQt+TD9yhjamSsplB84+0rdMFzQdpFo7WaVhSS8NZQE04KMPpMGhpyJBOCD+UoQ9f/Dd24Z8nb3NJcV0RYHKnZDhF795PfhR2jrP3s04gmUYwY0kcs9ksTpKPi/iKLpI4mc0XV8ns84KEs8Aluk7FpjGttR1nSPa9SBz7y9U2WWtah+PHND2s+WulBgPAZaG2uQaQ902FrlnQuAheFGzFOLa5BWu5DNNH3jIiVL4HlnWFsmDs6mg1zfoqGan5i7IeyUgaLrSMnMn5D1BLAwQUAAAICAAASCHsqQ9tG2wAAAB3AAAACQAkAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAatWKkstKs7Mz1OyUjDRM9Kz0FFQSi9KLMgoBgoYgjilmSkgdrRSqpmhQapJipmRUYqJiZGZma6lkXGipZmRmYmppbGZiYWlUixQfUllQapfYm4qRE9AYklGWmZeSmZeup57UWaKO8hopdhaAFBLAQItABQAAAgIAABIIezirONLkAIAAIoFAAALACQAAAAAAAAAAAAAAAAAAABncmFwaDAuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLAQItABQAAAgIAABIIeypD20bbAAAAHcAAAAJACQAAAAAAAAAAAAAAN0CAABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwUGAAAAAAIAAgC4AAAAlAMAAAAA
     upgradeData: 
     file_cachedStartup: {fileID: 0}
     data_cachedStartup: 
@@ -2056,10 +2056,10 @@ MonoBehaviour:
   m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1024, y: 768}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -2075,10 +2075,10 @@ Canvas:
   m_GameObject: {fileID: 897320048}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 58}
   m_PlaneDistance: 100
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
@@ -2233,12 +2233,14 @@ MonoBehaviour:
   SpawnSimpleBotButton: {fileID: 272276525}
   SpawnNotSimpleBotButton: {fileID: 68251318}
   StressTestSeekerController: {fileID: 1091172574}
-  BlockMapScale: 4
+  BlockScale: 1
   StressTestPathFinderCount: 100
   StressTestPathFinderFindingTimeGapMax: 10
   StressTestPathFinderFindingTimeGapMin: 3
   SimpleBotSpawnAmount: 100
   NotSimpleBotSpawnAmount: 10
+  MapWidth: 200
+  MapHeight: 200
 --- !u!4 &990870813
 Transform:
   m_ObjectHideFlags: 0
