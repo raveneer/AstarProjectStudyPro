@@ -7,8 +7,10 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
-    public GameObject BlockPrf;
+    public GameObject WallPrf;
     public GameObject SimpleBotPrf;
+    public GameObject WallParent;
+    public GameObject WallPlane;
     public AstarPath AstarPath;
     public BotGenerator BotGenerator;
     public List<Vector3Int> OpenSpaces;
@@ -42,11 +44,23 @@ public class GameController : MonoBehaviour
             {
                 if (mapData[x, z] == 1)
                 {
-                    var newBlock = Instantiate(BlockPrf, new Vector3(x + this.transform.position.x, 0, z + this.transform.position.z) * BlockScale, Quaternion.identity);
-                    newBlock.transform.localScale = new Vector3(1, 4f, 1) * BlockScale;
+                    var newWall = Instantiate(WallPrf, new Vector3(x + this.transform.position.x, 0, z + this.transform.position.z) * BlockScale, Quaternion.identity);
+                    newWall.transform.SetParent(WallParent.transform);
+                    newWall.transform.localScale = new Vector3(1, 4f, 1) * BlockScale;
+                    //큰 맵에서 부하를 줄이기 위해 그리기를 꺼준다.
+                    newWall.GetComponent<MeshRenderer>().enabled = false;
                 }
             }
         }
+
+        // 블럭들을 하나의 메시로 합친다. (그려주기 부담을 줄이자) -> 정점을 합치지 않아서 의미가 없었다. 대신 텍스쳐 한장을 그려서 덮는걸로 변경.
+        //MeshMerger.Merge();
+
+        //지형을 텍스쳐로 그려준다.
+        WallPlane.transform.position = new Vector3(MapWidth / 2 - BlockScale / 2f, 0.5f, MapHeight / 2 - BlockScale / 2f);
+        WallPlane.transform.Rotate(Vector3.up, 180);
+        WallPlane.transform.localScale = new Vector3(MapWidth / 10, 1, MapHeight / 10);
+        WallPlane.GetComponent<MeshRenderer>().material.mainTexture = WallTextureCreate(mapData);
 
         //빈방들을 체크해둔다.
         OpenSpaces = GetOpenSpaces(mapData);
@@ -113,6 +127,32 @@ public class GameController : MonoBehaviour
             }
         }
         return openSpaces;
+    }
+
+    public Texture2D WallTextureCreate(int[,] mapData)
+    {
+        int width = mapData.GetLength(0);
+        int height = mapData.GetLength(1);
+
+        var texture = new Texture2D(width, height, TextureFormat.ARGB32, false);
+        texture.filterMode = FilterMode.Point;
+
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                if (mapData[x, y] == 1)
+                {
+                    texture.SetPixel(x, y, Color.blue);
+                }
+                else
+                {
+                    texture.SetPixel(x, y, Color.black);
+                }
+            }
+        }
+        texture.Apply();
+        return texture;
     }
 
     // Update is called once per frame
