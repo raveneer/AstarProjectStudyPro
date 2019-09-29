@@ -70,6 +70,10 @@ public class GameController : MonoBehaviour
         var gridGraph = AstarPath.graphs.First() as GridGraph;
         gridGraph.SetDimensions(MapWidth, MapHeight, BlockScale);
         gridGraph.center = new Vector3(MapWidth / 2 + BlockScale / 2f, 0, MapHeight / 2 + BlockScale / 2f);
+
+        AstarPath.active.data.recastGraph.forcedBoundsCenter = new Vector3(MapWidth / 2 + BlockScale / 2f, 0, MapHeight / 2 + BlockScale / 2f);
+        AstarPath.active.data.recastGraph.forcedBoundsSize = new Vector3(MapWidth, 1, MapHeight);
+
         AstarPath.Scan();
 
         //봇들을 미로에 따라 생성한다.
