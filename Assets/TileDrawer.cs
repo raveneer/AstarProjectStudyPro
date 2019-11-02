@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Pathfinding;
+﻿using Pathfinding;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -9,21 +7,18 @@ public class TileDrawer : MonoBehaviour
     public Tilemap Tilemap;
     public Tile BlockTile;
 
-
     private void Start()
     {
     }
 
     private void Update()
     {
-      
         //우클릭일때 타일을 배치하거나, 지움.
         if (Input.GetMouseButtonUp(1))
         {
-            Vector3 clickedPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            var clickedPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            var clickIntPos = new Vector3Int((int)clickedPosition.x, (int)clickedPosition.y, 0);
-            var testPos = new Vector3Int(2,2,0);
+            var clickIntPos = new Vector3Int((int) clickedPosition.x, (int) clickedPosition.y, 0);
 
             var drarpos = clickedPosition;
             Debug.Log($"drarpos {drarpos}");
@@ -34,6 +29,13 @@ public class TileDrawer : MonoBehaviour
             else
             {
                 Tilemap.SetTile(clickIntPos, BlockTile);
+            }
+
+            var bounds = new Bounds(clickedPosition, new Vector3(3,3,0)); //이 바운드가 아닐 것 같은데 (최소한 중앙이 맞지 않을 것 같아서 3*3으로 크게 잡아줌.)
+            if (AstarPath.active != null && Application.isPlaying)
+            {
+                var guo = new GraphUpdateObject(bounds);
+                AstarPath.active.UpdateGraphs(guo);
             }
         }
     }
